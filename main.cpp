@@ -3,15 +3,16 @@
 #include <string>
 #include <windows.h>
 #include <cstring>
-#include <iostream>
 #include <set>
 
+#include <typeinfo>
 using std::cout;
 using namespace std;
 
 
 
 class  Checker{
+
 private:
     set <char> allowed_symbols;
     set<char> non_break_symbols;
@@ -30,6 +31,7 @@ private:
     }
 public:
     Checker( char* allowed, char* non_breaks,int max_word_size): MAX_WORD_SIZE(max_word_size){
+
         char* pAllowed;
         for (pAllowed = allowed; *pAllowed != '\0'; pAllowed++) {
             if (is_case_sensitive){
@@ -51,7 +53,7 @@ public:
 
         }
 
-        //Ğ²Ñ–Ğ´Ğ½ÑÑ‚Ğ¸ allowed_sybols Ğ²Ñ–Ğ´ non_break_symbols
+        //â³äíÿòè allowed_sybols â³ä non_break_symbols
 
     }
     void print_nonbreak_symbols(){
@@ -116,35 +118,11 @@ public:
 
 
 
-/*
- * program workflow:
-     take input txt
-     create vector strings
-     do: save head as 0 symbol; is_head = true
-     while(true):
-        if break symbol:
-            tail = break symbol
-            word = tail - head
-            mein_controller(word)
-        else:
-            reader.next_word()
-
-     funcs:
-        add to sorted string
-        search in string binary
-        mein_controller()
-        is_vowel()
-        is_break_symbol()
-
-    const arrays:
-        symbols_chars
-        vowel_chars*/
 int main () {
-    system("chcp 65001");
-    SetConsoleOutputCP(CP_UTF8);
+    system("chcp 1251");
 
-    string allowed = "youaserhgft";//"Ğ°ÑÑ–Ñ—ĞµÑ”ÑƒÑĞĞ¯Ğ‡Ğ†Ğ•Ğ„Ğ£Ğ®qeuioÃ¼aÃ¶Ã¤yQEUIOÃœAÃ–Ã„Y";
-    string non_break = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"; //Ğ¹Ñ†ÑƒĞºĞµĞ½Ğ³ÑˆÑ‰Ğ·Ñ…ÑŠÑ„Ñ‹Ğ²Ğ°Ğ¿Ñ€Ğ¾Ğ»Ğ´Ğ¶ÑÑÑ‡ÑĞ¼Ğ¸Ñ‚ÑŒĞ±ÑĞ™Ğ¦Ğ£ĞšĞ•ĞĞ“Ğ¨Ğ©Ğ—Ğ¥ĞªĞ¤Ğ«Ğ’ĞĞŸĞ ĞĞ›Ğ”Ğ–Ğ­Ğ¯Ğ§Ğ¡ĞœĞ˜Ğ¢Ğ¬Ğ‘Ğ®Ğ®Ñ—Ñ”Ò‘Ñ–Ğ†ÒĞ„Ğ‡";
+    string allowed = "youaserhgft//";
+    string non_break = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBN";//Méöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáşÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏĞÎËÄÆİß×ÑÌÈÒÜÁŞŞ¿º´³²¥ª¯";
 
     Checker my_checker( const_cast<char *>(allowed.c_str()), const_cast<char *>(non_break.c_str()), 10);
     my_checker.print_allowed_symbols();
@@ -168,3 +146,28 @@ int main () {
     my_checker.print_submited_words();
     return 0;
 }
+
+
+/*
+ * program workflow:
+     take input txt
+     create vector strings
+     do: save head as 0 symbol; is_head = true
+     while(true):
+        if break symbol:
+            tail = break symbol
+            word = tail - head
+            mein_controller(word)
+        else:
+            reader.next_word()
+
+     funcs:
+        add to sorted string
+        search in string binary
+        mein_controller()
+        is_vowel()
+        is_break_symbol()
+
+    const arrays:
+        symbols_chars
+        vowel_chars*/
