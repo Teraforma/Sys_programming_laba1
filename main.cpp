@@ -17,6 +17,7 @@ private:
     set<char> non_break_symbols;
     set<string> submited_words;
     const int MAX_WORD_SIZE;
+    const bool is_case_sensitive = false;
 
     string convert_to_str(char* a, int size)
     {
@@ -31,15 +32,34 @@ public:
     Checker( char* allowed, char* non_breaks,int max_word_size): MAX_WORD_SIZE(max_word_size){
         char* pAllowed;
         for (pAllowed = allowed; *pAllowed != '\0'; pAllowed++) {
-            allowed_symbols.insert(*pAllowed );
+            if (is_case_sensitive){
+                allowed_symbols.insert(*pAllowed );
+            }
+            else{
+                allowed_symbols.insert((char)tolower(*pAllowed) );
+            }
+
+
         }
         char* pnon_break;
         for (pnon_break = non_breaks; *pnon_break != '\0'; pnon_break++) {
-            non_break_symbols.insert(*pnon_break );
+            if(is_case_sensitive) {
+                non_break_symbols.insert(*pnon_break);
+            }else{
+                non_break_symbols.insert((char)tolower(*pnon_break ));
+            };
+
         }
 
         //відняти allowed_sybols від non_break_symbols
 
+    }
+    void print_nonbreak_symbols(){
+        cout << "non break symbols symbols are: " ;
+
+        for(auto i: non_break_symbols)
+            cout << i;
+        cout << endl;
     }
     void print_allowed_symbols(){
         cout << "allowed symbols are: " ;
@@ -51,7 +71,7 @@ public:
     void get_uniq_allowed_words(string to_check){
         char stack[MAX_WORD_SIZE];
         int head = 0;
-
+        bool is_word_allowed=true;
         for (char i: to_check){
             /*here 3 cases: allowed, break, else
             allowed - add letter to stack
@@ -59,7 +79,10 @@ public:
              break -submit word, set clean stack, move next
              */
 
-            bool is_word_allowed=true;
+            if(!is_case_sensitive){
+                i = (char)tolower(i);
+            }
+
             if(is_word_allowed and allowed_symbols.contains(i)){
                 stack[head] = i;
                 head++;
@@ -73,6 +96,7 @@ public:
                     submited_words.insert(convert_to_str(stack, head));
                 }
                 head= 0;
+                is_word_allowed=true;
 
             }
         }
@@ -124,7 +148,8 @@ int main () {
 
     Checker my_checker( const_cast<char *>(allowed.c_str()), const_cast<char *>(non_break.c_str()), 10);
     my_checker.print_allowed_symbols();
-    char16_t a;
+    my_checker.print_nonbreak_symbols();
+
     string line;
 
     ifstream myfile ("C:/Users/teraf/Desktop/texttotest.txt");
