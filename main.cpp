@@ -121,8 +121,8 @@ public:
 int main () {
     system("chcp 1251");
 
-    string allowed = "youaserhgft//";
-    string non_break = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBN";//Méöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáşÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏĞÎËÄÆİß×ÑÌÈÒÜÁŞŞ¿º´³²¥ª¯";
+    string allowed = "aeioqyu³àåºè³¿éîóşÿ";
+    string non_break = "éöóêåíãøùçõ¿ºæäëîğïàâ³ôÿ÷ñìèòüáşqwertyuiopasdfghjkzxcvbnm";
 
     Checker my_checker( const_cast<char *>(allowed.c_str()), const_cast<char *>(non_break.c_str()), 10);
     my_checker.print_allowed_symbols();
